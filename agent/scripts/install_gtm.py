@@ -14,7 +14,7 @@ the shop is skipped. Safe to re-run.
 
 Usage:
     install_gtm.py                  # inject GTM on all four brand stores
-    install_gtm.py --slug storico   # only one
+    install_gtm.py --slug brand-b   # only one
     install_gtm.py --dry-run        # report what would change, no writes
 
 Also clears the shop metafield ai-marketing-stack_seo.gtm_container_id on
@@ -40,10 +40,10 @@ API_VERSION = "2024-10"
 
 # Brand → GTM container id. Keep this tight: one row per brand we own.
 GTM_BY_SLUG: dict[str, str] = {
-    "classicoo": "GTM-PFVB9BMC",
+    "brand-c": "GTM-PFVB9BMC",
     "urban": "GTM-5SSC7Q4P",
     "trendsetters": "GTM-NXMT88BB",
-    "storico": "GTM-PR3RFMCX",
+    "brand-b": "GTM-PR3RFMCX",
 }
 
 MARKER = "<!-- ai-marketing-stack-seo: GTM installed via install_gtm.py -->"

@@ -42,15 +42,15 @@ function clearBrainEnv() {
 }
 
 test("slugToEnvSuffix: kebab → UPPER_SNAKE", () => {
-  if (!bridge.slugToEnvSuffix("urban-classics")) {
+  if (!bridge.slugToEnvSuffix("brand-a")) {
     return; // stub fallback; skip live assertion
   }
-  assert.equal(bridge.slugToEnvSuffix("urban-classics"), "URBAN_CLASSICS");
+  assert.equal(bridge.slugToEnvSuffix("brand-a"), "URBAN_CLASSICS");
 });
 
 test("slugToEnvSuffix: snake → UPPER_SNAKE", () => {
-  if (!bridge.slugToEnvSuffix("glitch_executor")) return;
-  assert.equal(bridge.slugToEnvSuffix("glitch_executor"), "GLITCH_EXECUTOR");
+  if (!bridge.slugToEnvSuffix("example_tenant")) return;
+  assert.equal(bridge.slugToEnvSuffix("example_tenant"), "EXAMPLE_TENANT");
 });
 
 test("slugToEnvSuffix: null and empty → null", () => {
@@ -61,15 +61,15 @@ test("slugToEnvSuffix: null and empty → null", () => {
 
 test("brainAvailableFor: false when nothing set", () => {
   clearBrainEnv();
-  assert.equal(bridge.brainAvailableFor("urban-classics"), false);
+  assert.equal(bridge.brainAvailableFor("brand-a"), false);
 });
 
 test("brainAvailableFor: true when per-brand set", () => {
   clearBrainEnv();
   process.env.BRAIN_TOKEN_BSK_006_URBAN_CLASSICS = "gbm_per_brand";
   try {
-    if (!bridge.brainAvailableFor("urban-classics")) return; // stub fallback
-    assert.equal(bridge.brainAvailableFor("urban-classics"), true);
+    if (!bridge.brainAvailableFor("brand-a")) return; // stub fallback
+    assert.equal(bridge.brainAvailableFor("brand-a"), true);
   } finally {
     clearBrainEnv();
   }
@@ -81,7 +81,7 @@ test("brainAvailableFor: brand isolation (one brand's token doesn't enable anoth
   try {
     if (!bridge.brainAvailableFor("example")) return; // stub fallback
     assert.equal(bridge.brainAvailableFor("example"), true);
-    assert.equal(bridge.brainAvailableFor("urban-classics"), false);
+    assert.equal(bridge.brainAvailableFor("brand-a"), false);
   } finally {
     clearBrainEnv();
   }

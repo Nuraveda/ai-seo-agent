@@ -5,7 +5,7 @@
  * Drop this component into your Astro layout:
  *
  *   ---
- *   import SeoHead from "../components/GlitchSeoHead.astro";
+ *   import SeoHead from "../components/Example.astro";
  *   ---
  *   <html>
  *     <head>
@@ -16,8 +16,8 @@
  *   </html>
  *
  * Required env:
- *   PUBLIC_GLITCH_SEO_URL  = https://grow.example.com
- *   GLITCH_SEO_TOKEN       = <FLEET_API_TOKEN from the agent's .env>
+ *   PUBLIC_example_SEO_URL  = https://grow.example.com
+ *   example_SEO_TOKEN       = <FLEET_API_TOKEN from the agent's .env>
  *
  * Runs at build time (SSG) — no runtime dependency on the agent.
  * Agent publishes → rebuild triggered via CI hook → site picks up.
@@ -30,8 +30,8 @@ interface Props {
 
 const { siteId, path } = Astro.props;
 
-const base = import.meta.env.PUBLIC_GLITCH_SEO_URL || "";
-const token = import.meta.env.GLITCH_SEO_TOKEN || "";
+const base = import.meta.env.PUBLIC_example_SEO_URL || "";
+const token = import.meta.env.example_SEO_TOKEN || "";
 
 let data: { jsonld: unknown[]; meta: { title: string | null; description: string | null } } = {
   jsonld: [],

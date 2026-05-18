@@ -13,11 +13,11 @@
 export const prerender = false; // SSR so the content stays fresh.
 
 const SITE_ID = "grow-site";
-const BASE = import.meta.env.PUBLIC_GLITCH_SEO_URL || "";
+const BASE = import.meta.env.PUBLIC_example_SEO_URL || "";
 
 export async function GET(): Promise<Response> {
   if (!BASE) {
-    return new Response("# llms.txt not configured (missing PUBLIC_GLITCH_SEO_URL).", {
+    return new Response("# llms.txt not configured (missing PUBLIC_example_SEO_URL).", {
       status: 500,
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });

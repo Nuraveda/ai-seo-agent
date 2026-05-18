@@ -14,23 +14,23 @@ In the agent's `fleet.json`:
 
 ```
 # Public — exposed to the build
-PUBLIC_GLITCH_SEO_URL=https://grow.example.com
+PUBLIC_example_SEO_URL=https://grow.example.com
 
 # Private — used only server-side by the <SeoHead> build-time fetch
-GLITCH_SEO_TOKEN=<same value as FLEET_API_TOKEN on the agent>
+example_SEO_TOKEN=<same value as FLEET_API_TOKEN on the agent>
 ```
 
 ## 3. Drop in the `<head>` component
 
-Copy [`SeoHead.astro`](./SeoHead.astro) to `src/components/GlitchSeoHead.astro` and use it in your layout:
+Copy [`SeoHead.astro`](./SeoHead.astro) to `src/components/Example.astro` and use it in your layout:
 
 ```astro
 ---
-import GlitchSeoHead from "../components/GlitchSeoHead.astro";
+import Example"../components/Example.astro";
 ---
 <html>
   <head>
-    <GlitchSeoHead siteId="my-site" path={Astro.url.pathname} />
+    <Example="my-site" path={Astro.url.pathname} />
     <!-- your own <title> and <meta> tags come BELOW —
          the agent's outputs are intentionally rendered first so your
          theme defaults can override them when desired. -->
@@ -67,6 +67,6 @@ The agent writes artifacts to the database instantly, but Astro's static output 
 
 ## Security notes
 
-- `PUBLIC_GLITCH_SEO_URL` is not secret — it's a public URL.
-- `GLITCH_SEO_TOKEN` IS secret — set it via your deploy host's env-var UI, not in your repo. The `/api/fleet/:siteId/head` endpoint requires it.
+- `PUBLIC_example_SEO_URL` is not secret — it's a public URL.
+- `example_SEO_TOKEN` IS secret — set it via your deploy host's env-var UI, not in your repo. The `/api/fleet/:siteId/head` endpoint requires it.
 - `/api/fleet/:siteId/llms.txt` is public (AI crawlers don't carry auth).

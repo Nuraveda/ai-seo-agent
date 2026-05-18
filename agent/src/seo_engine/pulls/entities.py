@@ -18,7 +18,7 @@ from ..sources import SiteRecord
 
 DEFAULT_N = 3
 MAX_CHARS_PER_PAGE = 20_000  # Natural Language bills per 1000 chars.
-USER_AGENT = "GlitchSEO-Agent/1.0"
+USER_AGENT = "Example-Agent/1.0"
 
 # Entity types that are SEO-useful. NLP returns lots of NUMBER / DATE /
 # PRICE / PHONE_NUMBER entities that float to the top on marketing

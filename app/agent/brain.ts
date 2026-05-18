@@ -22,7 +22,7 @@
  *     block or fail the local AgentMemory insert.
  *
  * Per the brands × agents matrix in memory, BSK-006 is enrolled in
- * all 7 brands (glitch-executor, urban-classics, storico, classicoo,
+ * all 7 brands (example-tenant, brand-a, brand-b, brand-c,
  * trendsetters, example, mokshya) — broadest agent enrolment of any
  * BSK. All 7 BRAIN_TOKEN_BSK_006_* entries are in the consolidated
  * `.env` from GROW-ENV-1.
@@ -46,7 +46,7 @@ const NON_ENV_CHARS = /[^A-Z0-9_]/g;
 
 /**
  * Normalize a brand/site slug into the env-key suffix. Accepts
- * kebab ("urban-classics") and snake ("urban_classics") forms;
+ * kebab ("brand-a") and snake ("urban_classics") forms;
  * both produce UPPER_SNAKE ("URBAN_CLASSICS").
  */
 export function slugToEnvSuffix(brand: string | null | undefined): string | null {

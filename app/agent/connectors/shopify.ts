@@ -24,7 +24,7 @@ type AdminGraphQL = {
   ) => Promise<Response>;
 };
 
-const USER_AGENT = "GlitchSEO-Agent/0.2";
+const USER_AGENT = "Example-Agent/0.2";
 const NS = "ai-marketing-stack_seo";
 
 async function fetchHtml(url: string): Promise<string | null> {

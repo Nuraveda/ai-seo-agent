@@ -14,23 +14,23 @@
   },
   {
     "id": "edge-site",
-    "name": "Glitch Edge",
+    "name": "Example",
     "baseUrl": "https://edge.example.com",
     "platform": "astro",
-    "repo": "<your-org>/glitch-edge-site"
+    "repo": "<your-org>/your-site"
   },
   {
     "id": "trade-site",
-    "name": "Glitch Trade",
+    "name": "Example",
     "baseUrl": "https://trade.example.com",
     "platform": "astro",
-    "repo": "<your-org>/glitch-trade-site"
+    "repo": "<your-org>/your-site"
   },
   {
     "id": "exec-portfolio",
     "name": "an open-source project",
     "baseUrl": "https://example.com",
     "platform": "astro",
-    "repo": "<your-org>/glitch-executor-labs-portfolio"
+    "repo": "<your-org>/your-site"
   }
 ]

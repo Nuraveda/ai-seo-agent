@@ -13,7 +13,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Resolve the repo root deterministically — this file is at
-# agent/src/glitch_seo_agent/config.py, so repo root is parents[3].
+# agent/src/seo_engine/config.py, so repo root is parents[3].
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 
 

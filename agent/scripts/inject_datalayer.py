@@ -17,7 +17,7 @@ Uses the same pattern as install_gtm.py:
 
 Usage:
     inject_datalayer.py                 # all 4 brands
-    inject_datalayer.py --slug storico
+    inject_datalayer.py --slug brand-b
     inject_datalayer.py --dry-run
 """
 from __future__ import annotations
@@ -36,7 +36,7 @@ import httpx
 from dotenv import load_dotenv
 
 API_VERSION = "2024-10"
-BRAND_SLUGS = ["classicoo", "urban", "trendsetters", "storico"]
+BRAND_SLUGS = ["brand-c", "urban", "trendsetters", "brand-b"]
 
 MARKER = "<!-- ai-marketing-stack-seo: ecommerce dataLayer pushes -->"
 

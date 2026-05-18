@@ -18,7 +18,7 @@ import json as json_mod
 import sys
 from typing import Any
 
-from glitch_seo_agent.clients.tag_manager import (
+from seo_engine.clients.tag_manager import (
     default_workspace_path,
     find_container_by_public_id,
     get_live_version,
@@ -29,10 +29,10 @@ from glitch_seo_agent.clients.tag_manager import (
 
 # Brand GTM container ids — matches install_gtm.py
 BRAND_GTM_IDS = {
-    "classicoo": "GTM-PFVB9BMC",
+    "brand-c": "GTM-PFVB9BMC",
     "urban": "GTM-5SSC7Q4P",
     "trendsetters": "GTM-NXMT88BB",
-    "storico": "GTM-PR3RFMCX",
+    "brand-b": "GTM-PR3RFMCX",
 }
 
 

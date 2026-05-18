@@ -24,7 +24,7 @@ import argparse
 import sys
 from typing import Any
 
-from glitch_seo_agent.clients.tag_manager import (
+from seo_engine.clients.tag_manager import (
     client,
     create_tag,
     create_trigger,
@@ -39,10 +39,10 @@ from glitch_seo_agent.clients.tag_manager import (
 
 # Brand → (GTM id, GA4 measurement id) — single source of truth.
 BRAND_WIRING: dict[str, dict[str, str]] = {
-    "classicoo":    {"gtm": "GTM-PFVB9BMC", "ga4": "G-BEK1YDY3L8", "domain": "classicoo.in"},
-    "urban":        {"gtm": "GTM-5SSC7Q4P", "ga4": "G-DHE6Y81594", "domain": "urban-classics-store.com"},
+    "brand-c":    {"gtm": "GTM-PFVB9BMC", "ga4": "G-BEK1YDY3L8", "domain": "brand-c.in"},
+    "urban":        {"gtm": "GTM-5SSC7Q4P", "ga4": "G-DHE6Y81594", "domain": "brand-a-store.com"},
     "trendsetters": {"gtm": "GTM-NXMT88BB", "ga4": "G-PZHVCKFJMV", "domain": "trendsetters-store.com"},
-    "storico":      {"gtm": "GTM-PR3RFMCX", "ga4": "G-V2956LEFLD", "domain": "storico.in"},
+    "brand-b":      {"gtm": "GTM-PR3RFMCX", "ga4": "G-V2956LEFLD", "domain": "brand-b.in"},
 }
 
 TRIGGER_NAME = "All Pages"

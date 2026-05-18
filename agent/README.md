@@ -53,7 +53,7 @@ Every API in v1 is free-tier-friendly for a daily run across 4 sites. No LLM cal
 ```
 agent/
 ├── pyproject.toml
-├── src/glitch_seo_agent/
+├── src/seo_engine/
 │   ├── config.py         pydantic-settings loader (paths, env)
 │   ├── db.py             asyncpg pool + typed writers for SeoReport
 │   ├── sources/          unified SiteRecord registry

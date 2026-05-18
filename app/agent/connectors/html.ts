@@ -20,7 +20,7 @@ import prisma from "../../db.server";
 import { autoRebuildEnabled, scheduleRebuild } from "../rebuild";
 import type { Connector, PageEdit, PageSample, VerifyResult } from "../types";
 
-const USER_AGENT = "GlitchSEO-Agent/0.3";
+const USER_AGENT = "Example-Agent/0.3";
 const FETCH_TIMEOUT_MS = 8_000;
 
 async function getText(url: string): Promise<string | null> {

@@ -1,10 +1,10 @@
 /**
  * Generic OAuth handler for per-client Dev Dashboard apps.
  *
- * Path `/auth/classicoo/install?shop=<shop>.myshopify.com` starts the OAuth flow
+ * Path `/auth/brand-c/install?shop=<shop>.myshopify.com` starts the OAuth flow
  * using the CLASSICOO_CLIENT_ID / CLASSICOO_CLIENT_SECRET from .env.
  *
- * Path `/auth/classicoo/callback?code=...&shop=...` completes the flow,
+ * Path `/auth/brand-c/callback?code=...&shop=...` completes the flow,
  * exchanges the authorization code for an offline access token, and
  * stores it in the Prisma Session table under id `offline_<shop>`.
  *
@@ -29,7 +29,7 @@ export const loader = async ({ request, params }) => {
   const shop = url.searchParams.get("shop");
 
   if (!CLIENT_ID || !CLIENT_SECRET) {
-    return new Response("Classicoo OAuth not configured (missing env vars)", { status: 500 });
+    return new Response("Brand C OAuth not configured (missing env vars)", { status: 500 });
   }
 
   // ─── install ────────────────────────────────────────────
@@ -38,7 +38,7 @@ export const loader = async ({ request, params }) => {
       return new Response("Provide ?shop=<name>.myshopify.com", { status: 400 });
     }
     const nonce = crypto.randomBytes(16).toString("hex");
-    const redirectUri = `${APP_URL}/auth/classicoo/callback`;
+    const redirectUri = `${APP_URL}/auth/brand-c/callback`;
     const authorize = new URL(`https://${shop}/admin/oauth/authorize`);
     authorize.searchParams.set("client_id", CLIENT_ID);
     authorize.searchParams.set("scope", SCOPES);
@@ -138,5 +138,5 @@ export const loader = async ({ request, params }) => {
     );
   }
 
-  return new Response("Unknown subpath. Use /auth/classicoo/install or /auth/classicoo/callback", { status: 404 });
+  return new Response("Unknown subpath. Use /auth/brand-c/install or /auth/brand-c/callback", { status: 404 });
 };
