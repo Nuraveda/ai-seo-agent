@@ -1,0 +1,209 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
+// enough when changing adapters.
+// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+model Session {
+  id            String    @id
+  shop          String
+  state         String
+  isOnline      Boolean   @default(false)
+  scope         String?
+  expires       DateTime?
+  accessToken   String
+  userId        BigInt?
+  firstName     String?
+  lastName      String?
+  email         String?
+  accountOwner  Boolean   @default(false)
+  locale        String?
+  collaborator  Boolean?  @default(false)
+  emailVerified Boolean?  @default(false)
+  refreshToken        String?
+  refreshTokenExpires DateTime?
+}
+
+/// One end-to-end agent run. Persisted for history + admin UI.
+model AgentRun {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  siteId         String   // e.g. myshop.myshopify.com, or a raw URL for html connector
+  platform       String   // "shopify" | "html" | "wix"
+  summary        Json     // {passing, failing, unknown, total}
+  signals        Json     // Signal[]
+  findings       Json     // Finding[]
+  plannerModel   String?
+  plannerSkipped Boolean  @default(false)
+  error          String?
+
+  @@index([siteId, createdAt(sort: Desc)])
+  @@index([platform, createdAt(sort: Desc)])
+}
+
+/// Agent's long-term memory. One row per run (or per lesson) per site.
+/// embedding uses pgvector; Prisma does not model the type natively, so
+/// reads/writes of the vector go through raw SQL in app/agent/memory.ts.
+model AgentMemory {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  siteId   String
+  platform String
+  kind     String   // "run_summary" | "lesson_learned" | ...
+  summary  String   @db.Text
+  signals  Json?
+  findings Json?
+  metrics  Json?
+
+  // Declared as Unsupported so Prisma's migration emits the column as
+  // vector(1536); raw SQL handles reads/writes. Nullable so runs without
+  // an embedding provider still persist.
+  embedding Unsupported("vector(1536)")?
+
+  @@index([siteId, createdAt(sort: Desc)])
+  @@index([siteId, kind])
+}
+
+/// Long-term brand / positioning facts about one site. Distinct from
+/// AgentMemory: AgentMemory is per-run episodic; ClientMemory is stable
+/// semantic context the generators read on every edit (brand voice,
+/// target audience, differentiators, policies, social links, etc).
+///
+/// Seeded from platform APIs on first audit (shop name, description,
+/// logo, etc.) and enriched by the merchant via the admin UI. Proposed
+/// facts from the LLM land here after merchant approval in a later pass.
+model ClientMemory {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  siteId          String   @unique
+  platform        String
+
+  // Brand
+  brandName       String?
+  tagline         String?
+  brandVoice      String?  @db.Text
+  targetAudience  String?  @db.Text
+  differentiators String?  @db.Text
+
+  // Catalog + tone
+  categories      String[] @default([])
+  keyTerms        String[] @default([])
+  avoidTerms      String[] @default([])
+
+  // Policies
+  shippingInfo    String?  @db.Text
+  returnsInfo     String?  @db.Text
+
+  // Social / Organization.sameAs
+  sameAs          String[] @default([])
+
+  // Free-form merchant notes
+  notes           String?  @db.Text
+
+  // LLM-proposed facts pending review (future work)
+  learnedFacts    Json?
+
+  // Google-API enrollment — used by the Python signal-pull pipeline.
+  // Nullable so existing rows stay valid; filled via the admin UI or
+  // per-platform source loaders.
+  gscProperty     String?
+  psiTargets      String[] @default([])
+  nlpTargets      String[] @default([])
+  /// Brand queries for Custom Search SERP snapshotting. Empty →
+  /// auto-derived ("<brand>", "<brand> review", "<domain>").
+  brandQueries    String[] @default([])
+
+  /// Google Tag Manager container id (e.g. "GTM-XXXXX"). When set,
+  /// the theme app embed block injects the GTM <script> + <noscript>.
+  gtmContainerId  String?
+}
+
+/// Long-form reports from the Python signal-pull pipeline.
+/// Platform-agnostic — one row per site per run, joined on siteId.
+/// The JS app reads this table read-only via /app/agent/reports.
+model SeoReport {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  siteId    String
+  platform  String
+  period    String   // "28d" | "7d" | "90d"
+  kind      String   // "daily" | "ad-hoc"
+  summary   Json     // {clicks, impressions, avgCtr, avgPosition, psiMedian, topEntities}
+  gsc       Json?
+  perf      Json?
+  entities  Json?
+  indexing  Json?
+  /// Custom Search SERP snapshot per brand query.
+  serp      Json?
+  error     String?
+
+  @@index([siteId, createdAt(sort: Desc)])
+  @@index([platform, createdAt(sort: Desc)])
+}
+
+/// Published artifact — the concrete output of an applyEdit() for
+/// platforms that don't have native metafield storage (HTML / Astro /
+/// Wix). Read by the /api/fleet/:siteId/* endpoints at build time.
+///
+/// One row per (site, scope, pageKey, kind, key). Upserted on every
+/// apply so the latest version wins without accumulating history.
+model PublishedArtifact {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  siteId      String   // fleet id (or raw URL for ad-hoc html sites)
+  scope       String   // "shop" | "product" (= page in html context)
+  pageKey     String   // path for scope=product/html; "__shop" for scope=shop
+  kind        String   // "jsonld" | "meta" | "llmstxt" | "copy"
+  key         String   // "Organization" | "Product" | "llmstxt" | "meta" ...
+  content     Json
+  rationale   String?  @db.Text
+
+  @@unique([siteId, scope, pageKey, kind, key])
+  @@index([siteId, scope, pageKey])
+}
+
+/// Per-product override of ClientMemory. Looked up by (siteId, handle)
+/// and merged on top of the site-level profile by the generators so an
+/// individual product can have its own voice / keyTerms / avoidTerms.
+model ProductMemory {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  siteId        String
+  productHandle String
+  brandVoice    String?  @db.Text
+  keyTerms      String[] @default([])
+  avoidTerms    String[] @default([])
+  notes         String?  @db.Text
+
+  @@unique([siteId, productHandle])
+  @@index([siteId])
+}
+
+/// A site the agent is attached to. v0 is Shopify-only (the Session row
+/// already scopes each store), but HTML/Wix sites need explicit records.
+model SiteConnection {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  platform  String   // "shopify" | "html" | "wix"
+  siteId    String   @unique
+  label     String?
+  config    Json?    // platform-specific (base URL, API token ref, etc.)
+  enabled   Boolean  @default(true)
+
+  @@index([platform])
+}

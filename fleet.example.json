@@ -1,0 +1,36 @@
+[
+  {
+    "id": "grow-site",
+    "name": "AI Marketing Stack",
+    "baseUrl": "https://grow.example.com",
+    "platform": "astro",
+    "repo": "<your-org>/ai-marketing-stack-site",
+    "notes": "Marketing site — test read-only first.",
+    "buildDir": "/home/support/ai-marketing-stack-site",
+    "buildCommand": "pnpm build && pm2 restart grow-site",
+    "gscProperty": "sc-domain:grow.example.com",
+    "psiTargets": [],
+    "nlpTargets": []
+  },
+  {
+    "id": "edge-site",
+    "name": "Glitch Edge",
+    "baseUrl": "https://edge.example.com",
+    "platform": "astro",
+    "repo": "<your-org>/glitch-edge-site"
+  },
+  {
+    "id": "trade-site",
+    "name": "Glitch Trade",
+    "baseUrl": "https://trade.example.com",
+    "platform": "astro",
+    "repo": "<your-org>/glitch-trade-site"
+  },
+  {
+    "id": "exec-portfolio",
+    "name": "an open-source project",
+    "baseUrl": "https://example.com",
+    "platform": "astro",
+    "repo": "<your-org>/glitch-executor-labs-portfolio"
+  }
+]
