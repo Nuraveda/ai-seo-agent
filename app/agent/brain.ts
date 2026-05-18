@@ -2,7 +2,7 @@
  * BSK-006 SEO → brain bridge (GROW-BIND-5, 2026-05-18).
  *
  * Mirrors every successful SEO agent run onto the shared
- * `glitch-brain-mcp` so sibling agents on the same brand can see
+ * `brain-mcp` so sibling agents on the same brand can see
  * what SEO just audited via team_state / recent_activity / briefing.
  *
  * This is **additive**: the existing `AgentMemory` row in the
@@ -11,7 +11,7 @@
  * The brain mirror is the sibling-visible coordination layer.
  *
  * Wiring contract (BIND-1b multi-brand pattern):
- *   - Env GLITCH_BRAIN_MCP_URL overrides the brain URL.
+ *   - Env BRAIN_MCP_URL overrides the brain URL.
  *   - Per-brand tokens: BRAIN_TOKEN_BSK_006_<BRAND_SLUG_UPPER>.
  *     Brand identifier flows from the audit's `siteId` (which in
  *     SEO's data model is the Shopify shop slug; the matrix uses
@@ -40,7 +40,7 @@ import {
 const DEFAULT_BRAIN_URL = "http://127.0.0.1:3107/mcp";
 const BRAIN_TOKEN_PREFIX = "BRAIN_TOKEN_BSK_006_";
 const BRAIN_TOKEN_LEGACY = "BRAIN_TOKEN_BSK_006";
-const BRAIN_URL_ENV = "GLITCH_BRAIN_MCP_URL";
+const BRAIN_URL_ENV = "BRAIN_MCP_URL";
 
 const NON_ENV_CHARS = /[^A-Z0-9_]/g;
 
