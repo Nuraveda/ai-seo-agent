@@ -1,25 +1,37 @@
 # AI SEO Agent
 
-Open-source AI agent for autonomous Shopify SEO — site audits, on-page
-optimization proposals, structured-data fixes, and content gap analysis.
+[![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
+[![Part of Mesh Pilot](https://img.shields.io/badge/Mesh%20Pilot-stack-black.svg)](https://meshpilot.app)
+[![Mirrored on Codeberg](https://img.shields.io/badge/codeberg-mirror-black.svg)](https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent)
 
-Runs as a Shopify Embedded App: the operator approves changes inside
-the app UI; the agent never edits the storefront without explicit
-human approval.
+> **Part of the [Mesh Pilot](https://meshpilot.app) open-source 6-agent marketing stack.**
+> Autonomous Shopify SEO — site audits, on-page optimization proposals, structured-data fixes, content-gap analysis. Ships as a Shopify Embedded App with a built-in human approval gate.
+
+The agent crawls a Shopify storefront, scores it across meta tags / headings / schema.org / image alt / internal linking / Core Web Vitals, surfaces gaps against competitors, and proposes edits. **Nothing applies to the live storefront until the operator approves it inside the embedded app.**
+
+## Quick start
+
+```bash
+git clone https://gitlab.com/glitch-grow/ai-seo-agent.git
+# or: git clone https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent.git
+cd ai-seo-agent
+
+pnpm install
+cp .env.example .env         # Shopify partner + GSC + LLM keys
+pnpm dev                     # Remix app on http://localhost:3000
+```
 
 ## What it does
 
-- **Audit** — crawls a Shopify storefront and scores on-page SEO across
-  meta tags, headings, schema.org markup, image alt text, internal
-  linking, and Core Web Vitals.
-- **Content gaps** — compares the storefront's product/collection pages
-  against competitor sites and surfaces missing topics.
-- **Proposals** — generates suggested edits (title rewrites, meta
-  rewrites, schema additions) shown in the embedded app for approval.
-- **Apply** — once approved, writes the changes via the Shopify Admin
-  GraphQL API.
-- **Fleet** — multi-store: one agent instance can audit/edit many stores
-  configured in `fleet.json`.
+- **Audit** — crawls a Shopify storefront and scores on-page SEO across meta tags, headings, schema.org markup, image alt text, internal linking, and Core Web Vitals.
+- **Content gaps** — compares the storefront's product/collection pages against competitor sites and surfaces missing topics.
+- **Proposals** — generates suggested edits (title rewrites, meta rewrites, schema additions) shown in the embedded app for approval.
+- **Apply** — once approved, writes the changes via the Shopify Admin GraphQL API.
+- **Fleet** — multi-store: one agent instance can audit/edit many stores configured in `fleet.json`.
+
+## The HITL pattern (shared across the stack)
+
+Every proposed edit lands in the operator-facing app UI as an approvable card. The agent never touches the live storefront without explicit sign-off. The audit log records who approved what, when. In the [Mesh Pilot](https://meshpilot.app) cockpit, the SEO surface lives alongside ads / sales / social / UGC / voice in one inbox.
 
 ## Layout
 
@@ -33,14 +45,28 @@ docs/           # docs site (Mintlify)
 fleet.example.json  # multi-store config template
 ```
 
-## Install
+## Companions in the stack
 
-```
-pnpm install
-cp .env.example .env   # fill in Shopify partner + GSC + LLM keys
-pnpm dev               # Remix app on http://localhost:3000
-```
+| Agent | Domain | Repo |
+|---|---|---|
+| AI Ads Agent | Meta / Google / TikTok / Amazon Ads | [glitch-grow/ai-ads-agent](https://gitlab.com/glitch-grow/ai-ads-agent) |
+| AI Sales Agent | Outbound B2B sales | [glitch-grow/ai-sales-agent](https://gitlab.com/glitch-grow/ai-sales-agent) |
+| AI Social Agent | Multi-platform posting + ORM | [glitch-grow/ai-social-agent](https://gitlab.com/glitch-grow/ai-social-agent) |
+| AI UGC Agent | Vertical video ad pipeline | [glitch-grow/ai-ugc-agent](https://gitlab.com/glitch-grow/ai-ugc-agent) |
+| AI Voice Agent | LiveKit-based phone agent | [glitch-grow/ai-voice-agent](https://gitlab.com/glitch-grow/ai-voice-agent) |
+| **AI SEO Agent** | This repo | — |
+
+In production they're orchestrated by **[Mesh Pilot](https://meshpilot.app)** — the closed-source cockpit that runs all six in concert with shared brand context, a single web approval inbox, and cross-agent handoffs.
+
+## Mirrors
+
+- GitLab: [`glitch-grow/ai-seo-agent`](https://gitlab.com/glitch-grow/ai-seo-agent)
+- Codeberg: [`Glitch_Exec_Lab/ai-seo-agent`](https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent)
 
 ## License
 
-MIT — see `LICENSE`.
+[MIT](LICENSE) — fork it, ship products with it, no attribution required.
+
+---
+
+Built by [Glitch Executor Labs](https://glitchexecutor.com).
