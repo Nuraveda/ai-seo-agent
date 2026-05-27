@@ -2,7 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 [![Part of Mesh Pilot](https://img.shields.io/badge/Mesh%20Pilot-stack-black.svg)](https://meshpilot.app)
-[![Mirrored on Codeberg](https://img.shields.io/badge/codeberg-mirror-black.svg)](https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent)
+[![Open on GitHub](https://img.shields.io/badge/github-Nuraveda--Labs-black.svg)](https://github.com/Nuraveda-Labs/ai-seo-agent)
+[![Mirrored on Codeberg](https://img.shields.io/badge/codeberg-mirror-black.svg)](https://codeberg.org/Nuraveda_lab/ai-seo-agent)
 
 > **Part of the [Mesh Pilot](https://meshpilot.app) open-source 6-agent marketing stack.**
 > Autonomous Shopify SEO — site audits, on-page optimization proposals, structured-data fixes, content-gap analysis. Ships as a Shopify Embedded App with a built-in human approval gate.
@@ -12,8 +13,8 @@ The agent crawls a Shopify storefront, scores it across meta tags / headings / s
 ## Quick start
 
 ```bash
-git clone https://gitlab.com/mesh-pilot/ai-seo-agent.git
-# or: git clone https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent.git
+git clone https://gitlab.com/nuraveda-lab/ai-seo-agent.git
+# or: git clone https://codeberg.org/Nuraveda_lab/ai-seo-agent.git
 cd ai-seo-agent
 
 pnpm install
@@ -49,19 +50,19 @@ fleet.example.json  # multi-store config template
 
 | Agent | Domain | Repo |
 |---|---|---|
-| AI Ads Agent | Meta / Google / TikTok / Amazon Ads | [mesh-pilot/ai-ads-agent](https://gitlab.com/mesh-pilot/ai-ads-agent) |
-| AI Sales Agent | Outbound B2B sales | [mesh-pilot/ai-sales-agent](https://gitlab.com/mesh-pilot/ai-sales-agent) |
-| AI Social Agent | Multi-platform posting + ORM | [mesh-pilot/ai-social-agent](https://gitlab.com/mesh-pilot/ai-social-agent) |
-| AI UGC Agent | Vertical video ad pipeline | [mesh-pilot/ai-ugc-agent](https://gitlab.com/mesh-pilot/ai-ugc-agent) |
-| AI Voice Agent | LiveKit-based phone agent | [mesh-pilot/ai-voice-agent](https://gitlab.com/mesh-pilot/ai-voice-agent) |
+| AI Ads Agent | Meta / Google / TikTok / Amazon Ads | [mesh-pilot/ai-ads-agent](https://gitlab.com/nuraveda-lab/ai-ads-agent) |
+| AI Sales Agent | Outbound B2B sales | [mesh-pilot/ai-sales-agent](https://gitlab.com/nuraveda-lab/ai-sales-agent) |
+| AI Social Agent | Multi-platform posting + ORM | [mesh-pilot/ai-social-agent](https://gitlab.com/nuraveda-lab/ai-social-agent) |
+| AI UGC Agent | Vertical video ad pipeline | [mesh-pilot/ai-ugc-agent](https://gitlab.com/nuraveda-lab/ai-ugc-agent) |
+| AI Voice Agent | LiveKit-based phone agent | [mesh-pilot/ai-voice-agent](https://gitlab.com/nuraveda-lab/ai-voice-agent) |
 | **AI SEO Agent** | This repo | — |
 
 In production they're orchestrated by **[Mesh Pilot](https://meshpilot.app)** — the closed-source cockpit that runs all six in concert with shared brand context, a single web approval inbox, and cross-agent handoffs.
 
 ## Mirrors
 
-- GitLab: [`mesh-pilot/ai-seo-agent`](https://gitlab.com/mesh-pilot/ai-seo-agent)
-- Codeberg: [`Glitch_Exec_Lab/ai-seo-agent`](https://codeberg.org/Glitch_Exec_Lab/ai-seo-agent)
+- GitLab: [`mesh-pilot/ai-seo-agent`](https://gitlab.com/nuraveda-lab/ai-seo-agent)
+- Codeberg: [`Glitch_Exec_Lab/ai-seo-agent`](https://codeberg.org/Nuraveda_lab/ai-seo-agent)
 
 ## Contributing
 
